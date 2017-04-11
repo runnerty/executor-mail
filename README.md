@@ -29,5 +29,26 @@
 }
 ```
 
+### EJS Template sample:
+#### Plan:
+```json
+{ "id":"mail_default",  
+  "to": ["my@mail.com"],
+  "title": "Runnerty Mailer",
+  "message": "My message from Runnerty!",
+  "args": {"value_one":"Hello", "value_two":"world!", "value_three":":YYYY"}
+}
+```
+#### HTML Template:
+```html
+<html>
+  <head>
+  <title><%= args.value_one %> <%= args.value_two %></title>
+  </head>
+  <body>
+  <%= args.value_three %>
+  </body>
+</html>
+```
 
 [Runnerty]: http://www.runnerty.io
