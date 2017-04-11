@@ -100,8 +100,8 @@ class mailExecutor extends Execution {
                   ]);
 
                   if (mail.ejsRender) {
-                    html = ejs.render(html);
-                    text = ejs.render(text);
+                    html = ejs.render(html,mail);
+                    text = ejs.render(text,mail);
                   }
 
                   var mailOptions = {
