@@ -133,8 +133,8 @@ class mailExecutor extends Execution {
                         if (err) {
                           var endOptions = {
                             end: 'error',
-                            messageLog: `Error sending mail (sendMail): ${err}`,
-                            execute_err_return: `Error sending mail: ${err}`,
+                            messageLog: `Error sending mail (sendMail): ${JSON.stringify(err)}`,
+                            execute_err_return: `Error sending mail: ${JSON.stringify(err)`,
                           };
                           _this.end(endOptions, resolve, reject);
                         } else {
@@ -149,8 +149,8 @@ class mailExecutor extends Execution {
               .catch(function (err) {
                 var endOptions = {
                   end: 'error',
-                  messageLog:  `Error sending mail: ${err}`,
-                  execute_err_return: `Error sending mail: ${err}`,
+                  messageLog:  `Error sending mail: ${JSON.stringify(err)}`,
+                  execute_err_return: `Error sending mail: ${JSON.stringify(err)}`,
                 };
                 _this.end(endOptions, resolve, reject);
               });
@@ -168,8 +168,8 @@ class mailExecutor extends Execution {
         .catch((err) => {
           var endOptions = {
             end: 'error',
-            messageLog: `mailExecutor Error getValues: ${err}`,
-            execute_err_return: `mailExecutor Error getValues ${err}`,
+            messageLog: `mailExecutor Error getValues: ${JSON.stringify(err)}`,
+            execute_err_return: `mailExecutor Error getValues ${JSON.stringify(err)}`,
             execute_return: ''
           };
           _this.end(endOptions, resolve, reject);
