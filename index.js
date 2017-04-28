@@ -27,154 +27,137 @@ class mailExecutor extends Execution {
     super(process);
   }
 
-  exec() {
+  exec(res) {
     var _this = this;
+    var mail = res;
+    mail.params = {};
 
-    return new Promise(function (resolve, reject) {
-      _this.getValues()
-        .then((res) => {
-          var mail = res;
-          mail.params = {};
+    if (res.to) {
 
-          if (res.to) {
+      for (var i = 0, len = res.to.length; i < len; i++) {
+        if (i) {
+          mail.to = mail.to + res.to[i] + ((i < len - 1) ? ', ' : '');
+        }
+        else {
+          mail.to = res.to[i] + ((i < len - 1) ? ', ' : '');
+        }
+      }
 
-            for (var i = 0, len = res.to.length; i < len; i++) {
-              if (i) {
-                mail.to = mail.to + res.to[i] + ((i < len - 1) ? ', ' : '');
-              }
-              else {
-                mail.to = res.to[i] + ((i < len - 1) ? ', ' : '');
-              }
-            }
-
-            if (res.cc) {
-              for (var i = 0, len = res.cc.length; i < len; i++) {
-                if (i) {
-                  mail.cc = mail.cc + res.cc[i] + ((i < len - 1) ? ', ' : '');
-                }
-                else {
-                  mail.cc = res.cc[i] + ((i < len - 1) ? ', ' : '');
-                }
-              }
-            }
-
-            if (res.bcc) {
-              for (var i = 0, len = res.bcc.length; i < len; i++) {
-                if (i) {
-                  mail.bcc = mail.bcc + res.bcc[i] + ((i < len - 1) ? ', ' : '');
-                }
-                else {
-                  mail.bcc = res.bcc[i] + ((i < len - 1) ? ', ' : '');
-                }
-              }
-            }
-
-            mail.params.subject = res.title;
-            mail.params.message = res.message;
-
-            var templateDir = path.resolve(mail.templateDir, mail.template);
-            var htmlTemplate = path.resolve(templateDir, 'html.html');
-            var txtTemplate = path.resolve(templateDir, 'text.txt');
-
-            Promise.all([
-              readFilePromise('html', htmlTemplate),
-              readFilePromise('text', txtTemplate)
-            ])
-              .then(
-                async function (res) {
-
-                  var [html_data_file, text_data_file] = res;
-
-                  var html_data = html_data_file.html.toString();
-                  var text_data = text_data_file.text.toString();
-
-                  var options = {
-                    useArgsValues: true,
-                    useProcessValues: true,
-                    useGlobalValues: true,
-                    useExtraValue: mail.params
-                  };
-                  var [html, text] = await Promise.all([
-                    _this.paramsReplace(html_data, options),
-                    _this.paramsReplace(text_data, options)
-                  ]);
-
-                  if (mail.ejsRender) {
-                    html = ejs.render(html,mail);
-                    text = ejs.render(text,mail);
-                  }
-
-                  var mailOptions = {
-                    from: mail.from,
-                    to: mail.to,
-                    cc: mail.cc,
-                    bcc: mail.bcc,
-                    subject: mail.params.subject,
-                    text: text,
-                    html: html,
-                    attachments: mail.attachments
-                  };
-
-                  if (mail.disable) {
-                    _this.logger.log('warn', 'Mail sender is disable.');
-                    var endOptions = {
-                      end: 'end',
-                      messageLogType: 'warn',
-                      messageLog:  'Mail sender is disable.',
-                      execute_err_return:  'Mail sender is disable.',
-                      execute_return: 'Mail sender is disable.'
-                    };
-                    _this.end(endOptions, resolve, reject);
-                  } else {
-                    var transport = nodemailer.createTransport(mail.transport);
-
-                    transport.sendMail(mailOptions,
-                      function (err, res) {
-                        if (err) {
-                          var endOptions = {
-                            end: 'error',
-                            messageLog: `Error sending mail (sendMail): ${JSON.stringify(err)}`,
-                            execute_err_return: `Error sending mail: ${JSON.stringify(err)`,
-                          };
-                          _this.end(endOptions, resolve, reject);
-                        } else {
-                          var endOptions = {
-                            end: 'end'
-                          };
-                          _this.end(endOptions, resolve, reject);
-                        }
-                      });
-                  }
-                })
-              .catch(function (err) {
-                var endOptions = {
-                  end: 'error',
-                  messageLog:  `Error sending mail: ${JSON.stringify(err)}`,
-                  execute_err_return: `Error sending mail: ${JSON.stringify(err)}`,
-                };
-                _this.end(endOptions, resolve, reject);
-              });
-
-          } else {
-            var endOptions = {
-              end: 'error',
-              messageLog:  `Error Mail recipient not setted.`,
-              execute_err_return:  `Error Mail recipient not setted.`,
-              execute_return: ''
-            };
-            _this.end(endOptions, resolve, reject);
+      if (res.cc) {
+        for (var i = 0, len = res.cc.length; i < len; i++) {
+          if (i) {
+            mail.cc = mail.cc + res.cc[i] + ((i < len - 1) ? ', ' : '');
           }
-        })
-        .catch((err) => {
+          else {
+            mail.cc = res.cc[i] + ((i < len - 1) ? ', ' : '');
+          }
+        }
+      }
+
+      if (res.bcc) {
+        for (var i = 0, len = res.bcc.length; i < len; i++) {
+          if (i) {
+            mail.bcc = mail.bcc + res.bcc[i] + ((i < len - 1) ? ', ' : '');
+          }
+          else {
+            mail.bcc = res.bcc[i] + ((i < len - 1) ? ', ' : '');
+          }
+        }
+      }
+
+      mail.params.subject = res.title;
+      mail.params.message = res.message;
+
+      var templateDir = path.resolve(mail.templateDir, mail.template);
+      var htmlTemplate = path.resolve(templateDir, 'html.html');
+      var txtTemplate = path.resolve(templateDir, 'text.txt');
+
+      Promise.all([
+        readFilePromise('html', htmlTemplate),
+        readFilePromise('text', txtTemplate)
+      ])
+        .then(
+          async function (res) {
+
+            var [html_data_file, text_data_file] = res;
+
+            var html_data = html_data_file.html.toString();
+            var text_data = text_data_file.text.toString();
+
+            var options = {
+              useArgsValues: true,
+              useProcessValues: true,
+              useGlobalValues: true,
+              useExtraValue: mail.params
+            };
+            var [html, text] = await Promise.all([
+              _this.paramsReplace(html_data, options),
+              _this.paramsReplace(text_data, options)
+            ]);
+
+            if (mail.ejsRender) {
+              html = ejs.render(html,mail);
+              text = ejs.render(text,mail);
+            }
+
+            var mailOptions = {
+              from: mail.from,
+              to: mail.to,
+              cc: mail.cc,
+              bcc: mail.bcc,
+              subject: mail.params.subject,
+              text: text,
+              html: html,
+              attachments: mail.attachments
+            };
+
+            if (mail.disable) {
+              _this.logger.log('warn', 'Mail sender is disable.');
+              var endOptions = {
+                end: 'end',
+                messageLogType: 'warn',
+                messageLog:  'Mail sender is disable.',
+                execute_err_return:  'Mail sender is disable.',
+                execute_return: 'Mail sender is disable.'
+              };
+              _this.end(endOptions);
+            } else {
+              var transport = nodemailer.createTransport(mail.transport);
+
+              transport.sendMail(mailOptions,
+                function (err, res) {
+                  if (err) {
+                    var endOptions = {
+                      end: 'error',
+                      messageLog: `Error sending mail (sendMail): ${JSON.stringify(err)}`,
+                      execute_err_return: `Error sending mail: ${JSON.stringify(err)}`
+                    };
+
+                    _this.end(endOptions);
+                  } else {
+                    _this.end();
+                  }
+                });
+            }
+          })
+        .catch(function (err) {
           var endOptions = {
             end: 'error',
-            messageLog: `mailExecutor Error getValues: ${JSON.stringify(err)}`,
-            execute_err_return: `mailExecutor Error getValues ${JSON.stringify(err)}`,
-            execute_return: ''
+            messageLog:  `Error sending mail: ${JSON.stringify(err)}`,
+            execute_err_return: `Error sending mail: ${JSON.stringify(err)}`,
           };
-          _this.end(endOptions, resolve, reject);
+          _this.end(endOptions);
         });
-    });
+
+    } else {
+      var endOptions = {
+        end: 'error',
+        messageLog:  `Error Mail to not setted.`,
+        execute_err_return:  `Error Mail to not setted.`,
+        execute_return: ''
+      };
+      _this.end(endOptions);
+    }
   }
 }
 

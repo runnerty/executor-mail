@@ -7,7 +7,7 @@
         "required": ["id","type","from","transport","templateDir","template"],
         "properties":{
           "id": {"type": "string"},
-          "type": {"type": "string", "pattern": "\\brunnerty-executor-mail\\b"},
+          "type": {"type": "string", "pattern": "runnerty-executor-mail"},
           "from":{"type":"string"},
           "transport":{"type":"string"},
           "templateDir":{"type":"string"},
