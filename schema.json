@@ -9,7 +9,7 @@
           "id": {"type": "string"},
           "type": {"type": "string", "pattern": "runnerty-executor-mail"},
           "from":{"type":"string"},
-          "transport":{"type":"string"},
+          "transport":{"type":["string","object"]},
           "templateDir":{"type":"string"},
           "template":{"type":"string"},
           "to": {"type": "array"},
