@@ -1,9 +1,9 @@
 "use strict";
 
-var nodemailer = require('nodemailer');
-var ejs = require('ejs');
-var path = require('path');
-var fs = require('fs');
+var nodemailer = require("nodemailer");
+var ejs = require("ejs");
+var path = require("path");
+var fs = require("fs");
 
 var Execution = global.ExecutionClass;
 
@@ -34,33 +34,33 @@ class mailExecutor extends Execution {
 
     if (res.to) {
 
-      for (var i = 0, len = res.to.length; i < len; i++) {
+      for (let i = 0, len = res.to.length; i < len; i++) {
         if (i) {
-          mail.to = mail.to + res.to[i] + ((i < len - 1) ? ', ' : '');
+          mail.to = mail.to + res.to[i] + ((i < len - 1) ? ", " : "");
         }
         else {
-          mail.to = res.to[i] + ((i < len - 1) ? ', ' : '');
+          mail.to = res.to[i] + ((i < len - 1) ? ", " : "");
         }
       }
 
       if (res.cc) {
-        for (var i = 0, len = res.cc.length; i < len; i++) {
+        for (let i = 0, len = res.cc.length; i < len; i++) {
           if (i) {
-            mail.cc = mail.cc + res.cc[i] + ((i < len - 1) ? ', ' : '');
+            mail.cc = mail.cc + res.cc[i] + ((i < len - 1) ? ", " : "");
           }
           else {
-            mail.cc = res.cc[i] + ((i < len - 1) ? ', ' : '');
+            mail.cc = res.cc[i] + ((i < len - 1) ? ", " : "");
           }
         }
       }
 
       if (res.bcc) {
-        for (var i = 0, len = res.bcc.length; i < len; i++) {
+        for (let i = 0, len = res.bcc.length; i < len; i++) {
           if (i) {
-            mail.bcc = mail.bcc + res.bcc[i] + ((i < len - 1) ? ', ' : '');
+            mail.bcc = mail.bcc + res.bcc[i] + ((i < len - 1) ? ", " : "");
           }
           else {
-            mail.bcc = res.bcc[i] + ((i < len - 1) ? ', ' : '');
+            mail.bcc = res.bcc[i] + ((i < len - 1) ? ", " : "");
           }
         }
       }
@@ -69,12 +69,12 @@ class mailExecutor extends Execution {
       mail.params.message = res.message;
 
       var templateDir = path.resolve(mail.templateDir, mail.template);
-      var htmlTemplate = path.resolve(templateDir, 'html.html');
-      var txtTemplate = path.resolve(templateDir, 'text.txt');
+      var htmlTemplate = path.resolve(templateDir, "html.html");
+      var txtTemplate = path.resolve(templateDir, "text.txt");
 
       Promise.all([
-        readFilePromise('html', htmlTemplate),
-        readFilePromise('text', txtTemplate)
+        readFilePromise("html", htmlTemplate),
+        readFilePromise("text", txtTemplate)
       ])
         .then(
           async function (res) {
@@ -112,23 +112,23 @@ class mailExecutor extends Execution {
             };
 
             if (mail.disable) {
-              _this.logger.log('warn', 'Mail sender is disable.');
+              _this.logger.log("warn", "Mail sender is disable.");
               var endOptions = {
-                end: 'end',
-                messageLogType: 'warn',
-                messageLog:  'Mail sender is disable.',
-                execute_err_return:  'Mail sender is disable.',
-                execute_return: 'Mail sender is disable.'
+                end: "end",
+                messageLogType: "warn",
+                messageLog:  "Mail sender is disable.",
+                execute_err_return:  "Mail sender is disable.",
+                execute_return: "Mail sender is disable."
               };
               _this.end(endOptions);
             } else {
               var transport = nodemailer.createTransport(mail.transport);
 
               transport.sendMail(mailOptions,
-                function (err, res) {
+                function (err) {
                   if (err) {
                     var endOptions = {
-                      end: 'error',
+                      end: "error",
                       messageLog: `Error sending mail (sendMail): ${JSON.stringify(err)}`,
                       execute_err_return: `Error sending mail: ${JSON.stringify(err)}`
                     };
@@ -142,7 +142,7 @@ class mailExecutor extends Execution {
           })
         .catch(function (err) {
           var endOptions = {
-            end: 'error',
+            end: "error",
             messageLog:  `Error sending mail: ${JSON.stringify(err)}`,
             execute_err_return: `Error sending mail: ${JSON.stringify(err)}`,
           };
@@ -151,10 +151,10 @@ class mailExecutor extends Execution {
 
     } else {
       var endOptions = {
-        end: 'error',
-        messageLog:  `Error Mail to not setted.`,
-        execute_err_return:  `Error Mail to not setted.`,
-        execute_return: ''
+        end: "error",
+        messageLog:  "Error Mail to not setted.",
+        execute_err_return:  "Error Mail to not setted.",
+        execute_return: ""
       };
       _this.end(endOptions);
     }
