@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "Runnerty module: Mail executor",
   "author": "Coderty",
-  "license": "ISC",
+  "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
