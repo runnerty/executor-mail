@@ -51,4 +51,10 @@
 </html>
 ```
 
+## Want to help?
+
+Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
+guidelines for [contributing][contributing].
+
+[contributing]: https://github.com/Coderty/runnerty/blob/master/CONTRIBUTING.md
 [Runnerty]: http://www.runnerty.io
