@@ -4,7 +4,7 @@
 ```json
 {
   "id": "mail_default",
-  "type": "runnerty-executor-mail",
+  "type": "@runnerty/executor-mail",
   "disable": false,
   "from": "Runnerty Notificator <my@sender.com>",
   "transport": "smtp://my%mailsender.com:pass@smtp.host.com/?pool=true",
