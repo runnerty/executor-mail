@@ -34,35 +34,14 @@ class mailExecutor extends Execution {
 
     if (res.to) {
 
-      for (let i = 0, len = res.to.length; i < len; i++) {
-        if (i) {
-          mail.to = mail.to + res.to[i] + ((i < len - 1) ? ", " : "");
-        }
-        else {
-          mail.to = res.to[i] + ((i < len - 1) ? ", " : "");
-        }
+      mail.to = res.to.join(",");
+
+      if (res.cc){
+        mail.cc = res.cc.join(",");
       }
 
-      if (res.cc) {
-        for (let i = 0, len = res.cc.length; i < len; i++) {
-          if (i) {
-            mail.cc = mail.cc + res.cc[i] + ((i < len - 1) ? ", " : "");
-          }
-          else {
-            mail.cc = res.cc[i] + ((i < len - 1) ? ", " : "");
-          }
-        }
-      }
-
-      if (res.bcc) {
-        for (let i = 0, len = res.bcc.length; i < len; i++) {
-          if (i) {
-            mail.bcc = mail.bcc + res.bcc[i] + ((i < len - 1) ? ", " : "");
-          }
-          else {
-            mail.bcc = res.bcc[i] + ((i < len - 1) ? ", " : "");
-          }
-        }
+      if (res.bcc){
+        mail.bcc = res.bcc.join(",");
       }
 
       mail.params.subject = res.title;
