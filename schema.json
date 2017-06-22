@@ -1,47 +1,106 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "runnerty-executor-mail",
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "@runnerty-executor-mail",
   "definitions": {
-    "config":
-      { "type": "object",
-        "required": ["id","type","from","transport","templateDir","template"],
-        "properties":{
-          "id": {"type": "string"},
-          "type": {"type": "string", "pattern": "runnerty-executor-mail"},
-          "from":{"type":"string"},
-          "transport":{"type":["string","object"]},
-          "templateDir":{"type":"string"},
-          "template":{"type":"string"},
-          "to": {"type": "array"},
-          "cc": {"type": "array"},
-          "bcc": {"type": "array"},
-          "ejsRender": {"type": "boolean"}
+    "config": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "from",
+        "transport",
+        "templateDir",
+        "template"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "@runnerty-executor-mail"
+        },
+        "from": {
+          "type": "string"
+        },
+        "transport": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "templateDir": {
+          "type": "string"
+        },
+        "template": {
+          "type": "string"
+        },
+        "to": {
+          "type": "array"
+        },
+        "cc": {
+          "type": "array"
+        },
+        "bcc": {
+          "type": "array"
+        },
+        "ejsRender": {
+          "type": "boolean"
+        }
       }
     },
-    "params":
-    { "type": "object",
-      "required": ["id","message","title"],
-      "properties":{
-        "id": {"type": "string"},
-        "title": {"type": "string"},
-        "to": {"type": "array"},
-        "cc": {"type": "array"},
-        "bcc": {"type": "array"},
+    "params": {
+      "type": "object",
+      "required": [
+        "id",
+        "message",
+        "title"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "to": {
+          "type": "array"
+        },
+        "cc": {
+          "type": "array"
+        },
+        "bcc": {
+          "type": "array"
+        },
         "attachments": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "filename": {"type": "string"},
-              "content": {"type": "string"},
-              "path": {"type": "string"},
-              "contentType": {"type": "string"},
-              "encoding": {"type": "string"},
-              "raw": {"type": "string"}
+              "filename": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "contentType": {
+                "type": "string"
+              },
+              "encoding": {
+                "type": "string"
+              },
+              "raw": {
+                "type": "string"
+              }
             }
           }
         },
-        "message":{"type":"string"}
+        "message": {
+          "type": "string"
+        }
       }
     }
   }
