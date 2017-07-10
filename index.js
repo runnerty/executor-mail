@@ -96,8 +96,8 @@ class mailExecutor extends Execution {
                 end: "end",
                 messageLogType: "warn",
                 messageLog:  "Mail sender is disable.",
-                execute_err_return:  "Mail sender is disable.",
-                execute_return: "Mail sender is disable."
+                err_output:  "Mail sender is disable.",
+                msg_output: "Mail sender is disable."
               };
               _this.end(endOptions);
             } else {
@@ -109,7 +109,7 @@ class mailExecutor extends Execution {
                     var endOptions = {
                       end: "error",
                       messageLog: `Error sending mail (sendMail): ${JSON.stringify(err)}`,
-                      execute_err_return: `Error sending mail: ${JSON.stringify(err)}`
+                      err_output: `Error sending mail: ${JSON.stringify(err)}`
                     };
 
                     _this.end(endOptions);
@@ -123,7 +123,7 @@ class mailExecutor extends Execution {
           var endOptions = {
             end: "error",
             messageLog:  `Error sending mail: ${JSON.stringify(err)}`,
-            execute_err_return: `Error sending mail: ${JSON.stringify(err)}`,
+            err_output: `Error sending mail: ${JSON.stringify(err)}`,
           };
           _this.end(endOptions);
         });
@@ -131,9 +131,9 @@ class mailExecutor extends Execution {
     } else {
       var endOptions = {
         end: "error",
-        messageLog:  "Error Mail to not setted.",
-        execute_err_return:  "Error Mail to not setted.",
-        execute_return: ""
+        messageLog: "Error Mail to not setted.",
+        err_output: "Error Mail to not setted.",
+        msg_output: ""
       };
       _this.end(endOptions);
     }
