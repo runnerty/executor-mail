@@ -1,13 +1,13 @@
 {
   "name": "@runnerty/executor-mail",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Runnerty module: Mail executor",
   "author": "Coderty",
   "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Coderty/runnerty-executor-mail.git"
+    "url": "git+https://github.com/runnerty/executor-mail.git"
   },
   "keywords": [
     "runnerty",
@@ -15,9 +15,9 @@
     "mail"
   ],
   "bugs": {
-    "url": "https://github.com/Coderty/runnerty-executor-mail/issues"
+    "url": "https://github.com/runnerty/executor-mail/issues"
   },
-  "homepage": "https://github.com/Coderty/runnerty-executor-mail#readme",
+  "homepage": "https://github.com/runnerty/executor-mail#readme",
   "dependencies": {
     "ejs": "^2.5.7",
     "nodemailer": "^4.0.1"
