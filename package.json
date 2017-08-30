@@ -1,6 +1,6 @@
 {
   "name": "@runnerty/executor-mail",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Runnerty module: Mail executor",
   "author": "Coderty",
   "license": "MIT",
@@ -20,6 +20,6 @@
   "homepage": "https://github.com/runnerty/executor-mail#readme",
   "dependencies": {
     "ejs": "^2.5.7",
-    "nodemailer": "^4.0.1"
+    "nodemailer": "^4.1.0"
   }
 }

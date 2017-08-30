@@ -1,12 +1,12 @@
 # Mail executor for [Runnerty]:
 
-### Configuration sample:
+### Configuration samples:
 ```json
 {
   "id": "mail_default",
   "type": "@runnerty-executor-mail",
   "disable": false,
-  "from": "Runnerty Notificator <my@sender.com>",
+  "from": "Runnerty Notificator <sample@runnerty.io>",
   "transport": "smtp://my%mailsender.com:pass@smtp.host.com/?pool=true",
   "bcc":["mycc@mail.com"],
   "templateDir": "/etc/runnerty/templates",
@@ -14,7 +14,26 @@
   "ejsRender": true
 }
 ```
-
+```json
+{
+  "id": "mail_aws_ses",
+  "type": "@runnerty-executor-mail",
+  "disable": false,
+  "from": "Runnerty <hello@runnerty.io>",
+  "transport": {
+      "host": "email-smtp.eu-west-1.amazonaws.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+          "user": "aws_ses_user",
+          "pass": "aws_ses_pass"
+      }
+  },
+  "templateDir": "/etc/runnerty/templates",
+  "template": "alerts",
+  "ejsRender": true
+}
+```
 ### Plan sample:
 ```json
 { "id":"mail_default",  
@@ -56,5 +75,5 @@
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
 guidelines for [contributing][contributing].
 
-[contributing]: https://github.com/Coderty/runnerty/blob/master/CONTRIBUTING.md
+[contributing]: https://github.com/runnerty/runnerty/blob/master/CONTRIBUTING.md
 [Runnerty]: http://www.runnerty.io

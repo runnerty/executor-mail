@@ -1,16 +1,16 @@
 "use strict";
 
-var nodemailer = require("nodemailer");
-var ejs = require("ejs");
-var path = require("path");
-var fs = require("fs");
+const nodemailer = require("nodemailer");
+const ejs = require("ejs");
+const path = require("path");
+const fs = require("fs");
 
-var Execution = global.ExecutionClass;
+const Execution = global.ExecutionClass;
 
 function readFilePromise(type, file) {
-  return new Promise(function (resolve, reject) {
-    fs.readFile(file, function (err, data) {
-      var res = {};
+  return new Promise((resolve, reject) => {
+    fs.readFile(file, (err, data) => {
+      let res = {};
       if (err) {
         res[type] = err;
         reject(res);
@@ -33,43 +33,38 @@ class mailExecutor extends Execution {
     mail.params = {};
 
     if (res.to) {
-
       mail.to = res.to.join(",");
-
       if (res.cc){
         mail.cc = res.cc.join(",");
       }
-
       if (res.bcc){
         mail.bcc = res.bcc.join(",");
       }
-
       mail.params.subject = res.title;
       mail.params.message = res.message;
 
-      var templateDir = path.resolve(mail.templateDir, mail.template);
-      var htmlTemplate = path.resolve(templateDir, "html.html");
-      var txtTemplate = path.resolve(templateDir, "text.txt");
+      const templateDir = path.resolve(mail.templateDir, mail.template);
+      const htmlTemplate = path.resolve(templateDir, "html.html");
+      const txtTemplate = path.resolve(templateDir, "text.txt");
 
       Promise.all([
         readFilePromise("html", htmlTemplate),
         readFilePromise("text", txtTemplate)
       ])
         .then(
-          async function (res) {
+          async res => {
 
-            var [html_data_file, text_data_file] = res;
+            let [html_data_file, text_data_file] = res;
+            let html_data = html_data_file.html.toString();
+            let text_data = text_data_file.text.toString();
 
-            var html_data = html_data_file.html.toString();
-            var text_data = text_data_file.text.toString();
-
-            var options = {
+            const options = {
               useArgsValues: true,
               useProcessValues: true,
               useGlobalValues: true,
               useExtraValue: mail.params
             };
-            var [html, text] = await Promise.all([
+            let [html, text] = await Promise.all([
               _this.paramsReplace(html_data, options),
               _this.paramsReplace(text_data, options)
             ]);
@@ -79,7 +74,7 @@ class mailExecutor extends Execution {
               text = ejs.render(text,mail);
             }
 
-            var mailOptions = {
+            const mailOptions = {
               from: mail.from,
               to: mail.to,
               cc: mail.cc,
@@ -92,7 +87,7 @@ class mailExecutor extends Execution {
 
             if (mail.disable) {
               _this.logger.log("warn", "Mail sender is disable.");
-              var endOptions = {
+              let endOptions = {
                 end: "end",
                 messageLogType: "warn",
                 messageLog:  "Mail sender is disable.",
@@ -101,12 +96,12 @@ class mailExecutor extends Execution {
               };
               _this.end(endOptions);
             } else {
-              var transport = nodemailer.createTransport(mail.transport);
+              let transport = nodemailer.createTransport(mail.transport);
 
               transport.sendMail(mailOptions,
-                function (err) {
+                err => {
                   if (err) {
-                    var endOptions = {
+                    const endOptions = {
                       end: "error",
                       messageLog: `Error sending mail (sendMail): ${JSON.stringify(err)}`,
                       err_output: `Error sending mail: ${JSON.stringify(err)}`
@@ -119,8 +114,8 @@ class mailExecutor extends Execution {
                 });
             }
           })
-        .catch(function (err) {
-          var endOptions = {
+        .catch(err => {
+          const endOptions = {
             end: "error",
             messageLog:  `Error sending mail: ${JSON.stringify(err)}`,
             err_output: `Error sending mail: ${JSON.stringify(err)}`,
@@ -129,7 +124,7 @@ class mailExecutor extends Execution {
         });
 
     } else {
-      var endOptions = {
+      const endOptions = {
         end: "error",
         messageLog: "Error Mail to not setted.",
         err_output: "Error Mail to not setted.",
