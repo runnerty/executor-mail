@@ -4,14 +4,7 @@
   "definitions": {
     "config": {
       "type": "object",
-      "required": [
-        "id",
-        "type",
-        "from",
-        "transport",
-        "templateDir",
-        "template"
-      ],
+      "required": ["id", "type", "from", "transport", "templateDir", "template"],
       "properties": {
         "id": {
           "type": "string"
@@ -24,10 +17,7 @@
           "type": "string"
         },
         "transport": {
-          "type": [
-            "string",
-            "object"
-          ]
+          "type": ["string", "object"]
         },
         "templateDir": {
           "type": "string"
@@ -51,11 +41,7 @@
     },
     "params": {
       "type": "object",
-      "required": [
-        "id",
-        "message",
-        "title"
-      ],
+      "required": ["id", "message", "title"],
       "properties": {
         "id": {
           "type": "string"
