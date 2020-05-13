@@ -17,6 +17,10 @@
   "bugs": {
     "url": "https://github.com/runnerty/executor-mail/issues"
   },
+  "scripts": {
+    "commit": "git-cz",
+    "lint": "eslint '**/*.js' && prettier --check '**'"
+  },
   "homepage": "https://github.com/runnerty/executor-mail#readme",
   "dependencies": {
     "ejs": "^3.1.2",
@@ -25,6 +29,7 @@
   "devDependencies": {
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.11.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "eslint-plugin-prettier": "^3.1.3"
   }
 }
