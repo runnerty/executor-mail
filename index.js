@@ -12,10 +12,10 @@ class mailExecutor extends Execution {
     super(process);
   }
 
-  exec(res) {
-    if (res.disable) {
+  exec(params) {
+    if (params.disable) {
       this.logger.log('warn', 'Mail sender is disable.');
-      let endOptions = {
+      const endOptions = {
         end: 'end',
         messageLogType: 'warn',
         messageLog: 'Mail sender is disable.',
@@ -24,7 +24,7 @@ class mailExecutor extends Execution {
       };
       this.end(endOptions);
     } else {
-      this.sendMail(res);
+      this.sendMail(params);
     }
   }
 
@@ -61,8 +61,9 @@ class mailExecutor extends Execution {
       ]);
 
       if (mail.ejsRender) {
-        html = ejs.render(html, mail);
-        text = ejs.render(text, mail);
+        const args = { ...mail, ...(mail.args && typeof mail.args === 'object' ? mail.args : {}) };
+        html = ejs.render(html, args);
+        text = ejs.render(text, args);
       }
 
       const mailOptions = {

@@ -1,7 +1,28 @@
+<p align="center">
+  <a href="http://runnerty.io">
+    <img height="257" src="https://runnerty.io/assets/header/logo-stroked.png">
+  </a>
+  <p align="center">A new way for processes managing</p>
+</p>
+
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Dependency Status][david-badge]][david-badge-url] 
+<a href="#badge">
+  <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg">
+</a>
+
+
+# Mail notifier for [Runnerty]:
+Email notification module with [ejs] template support.
+
+### Installation:
+```bash
+npm i @runnerty/executor-mail
+```
+
 # Mail executor for [Runnerty]:
 
 ### Configuration samples:
-
+Add in [config.json]:
 ```json
 {
   "id": "mail_default",
@@ -38,7 +59,7 @@
 ```
 
 ### Plan sample:
-
+Add in [plan.json]:
 ```json
 {
   "id": "mail_default",
@@ -88,4 +109,12 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 guidelines for [contributing][contributing].
 
 [contributing]: https://github.com/runnerty/runnerty/blob/master/CONTRIBUTING.md
-[runnerty]: http://www.runnerty.io
+[Runnerty]: http://www.runnerty.io
+[downloads-image]: https://img.shields.io/npm/dm/@runnerty/executor-mail.svg
+[npm-url]: https://www.npmjs.com/package/@runnerty/executor-mail
+[npm-image]: https://img.shields.io/npm/v/@runnerty/executor-mail.svg
+[david-badge]: https://david-dm.org/runnerty/executor-mail.svg
+[david-badge-url]: https://david-dm.org/runnerty/executor-mail
+[config.json]: http://docs.runnerty.io/config/
+[plan.json]: http://docs.runnerty.io/plan/
+[ejs]: https://ejs.co
