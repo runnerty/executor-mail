@@ -11,15 +11,13 @@
 </a>
 
 
-# Mail notifier for [Runnerty]:
+# Mail executor for [Runnerty]:
 Email notification module with [ejs] template support.
 
 ### Installation:
 ```bash
 npm i @runnerty/executor-mail
 ```
-
-# Mail executor for [Runnerty]:
 
 ### Configuration samples:
 Add in [config.json]:
