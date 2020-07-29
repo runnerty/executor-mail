@@ -93,10 +93,10 @@ Add in [plan.json]:
 ```html
 <html>
   <head>
-    <title><%= args.value_one %> <%= args.value_two %></title>
+    <title><%= value_one %> <%= value_two %></title>
   </head>
   <body>
-    <%= args.value_three %>
+    <%= value_three %>
   </body>
 </html>
 ```
