@@ -8,7 +8,7 @@
       "transport": "smtp://my%mailsender.com:pass@smtp.host.com/?pool=true",
       "bcc": ["mycc@mail.com"],
       "templateDir": "./templates",
-      "template": "mail-error",
+      "template": "mail-notification",
       "ejsRender": true
     },
     {
@@ -26,7 +26,7 @@
         }
       },
       "templateDir": "./templates",
-      "template": "mail-error",
+      "template": "mail-notification",
       "ejsRender": true
     }
   ]

@@ -2,8 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/runnerty/schemas/master/schemas/3.0/plan.json",
   "chains": [
     {
-      "id": "CHAIN_MYSQL_SAMPLES",
-      "name": "MySQL module example chain",
+      "id": "CHAIN_MAIL_SAMPLES",
+      "name": "Mail module example chain",
       "defaults_processes": {
         "notifications": {
           "on_start": [
@@ -29,30 +29,14 @@
       },
       "processes": [
         {
-          "id": "MYSQL_SIMPLE",
+          "id": "MAIL_SIMPLE",
           "name": "MYSQL COMMAND SAMPLE",
           "exec": {
-            "id": "mail_smtp",
-            "command": "SELECT NOW()"
-          }
-        },
-        {
-          "id": "MYSQL_FILE",
-          "name": "MYSQL COMMAND FILE SAMPLE",
-          "exec": {
-            "id": "mail_smtp",
-            "command_file": "./sql/test.sql"
-          }
-        },
-        {
-          "id": "MYSQL_OUTPUT FILES",
-          "name": "MYSQL OUTPUTS",
-          "exec": {
-            "id": "mail_smtp",
-            "command": "SELECT TABLE_NAME, ENGINE, TABLE_ROWS, DATA_LENGTH, TABLE_COMMENT FROM information_schema.TABLES",
-            "xlsxFileExport": "./my_excel.xlsx",
-            "csvFileExport": "./my_csv.csv",
-            "fileExport": "./my_json.json"
+            "id": "mail_default",
+            "to": ["my@mail.com"],
+            "title": "Runnerty Mailer",
+            "message": "My message from Runnerty!",
+            "args": { "value_one": "Value ONE!", "sample_date": "@GETDATE('YYYY-MM-DD HH:mm:ss')" }
           }
         }
       ]
