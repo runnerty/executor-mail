@@ -32,7 +32,7 @@
           "id": "MYSQL_SIMPLE",
           "name": "MYSQL COMMAND SAMPLE",
           "exec": {
-            "id": "mysql_default",
+            "id": "mail_smtp",
             "command": "SELECT NOW()"
           }
         },
@@ -40,7 +40,7 @@
           "id": "MYSQL_FILE",
           "name": "MYSQL COMMAND FILE SAMPLE",
           "exec": {
-            "id": "mysql_default",
+            "id": "mail_smtp",
             "command_file": "./sql/test.sql"
           }
         },
@@ -48,7 +48,7 @@
           "id": "MYSQL_OUTPUT FILES",
           "name": "MYSQL OUTPUTS",
           "exec": {
-            "id": "mysql_default",
+            "id": "mail_smtp",
             "command": "SELECT TABLE_NAME, ENGINE, TABLE_ROWS, DATA_LENGTH, TABLE_COMMENT FROM information_schema.TABLES",
             "xlsxFileExport": "./my_excel.xlsx",
             "csvFileExport": "./my_csv.csv",
