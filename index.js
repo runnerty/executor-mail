@@ -5,9 +5,9 @@ const ejs = require('ejs');
 const path = require('path');
 const fsp = require('fs').promises;
 
-const Execution = global.ExecutionClass;
+const Executor = require('@runnerty/module-core').Executor;
 
-class mailExecutor extends Execution {
+class mailExecutor extends Executor {
   constructor(process) {
     super(process);
   }
