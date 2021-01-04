@@ -5,22 +5,39 @@
   <p align="center">A new way for processes managing</p>
 </p>
 
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Dependency Status][david-badge]][david-badge-url] 
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Dependency Status][david-badge]][david-badge-url]
 <a href="#badge">
-  <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg">
+<img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg">
 </a>
 
-
 # Mail executor for [Runnerty]:
+
 Email notification module with [ejs] template support.
 
 ### Installation:
+
 ```bash
 npm i @runnerty/executor-mail
 ```
 
+You can also add modules to your project with [runnerty-cli]
+
+```bash
+npx runnerty-cli add @runnerty/executor-mail
+```
+
+This command installs the module in your project, adds example configuration in your `config.json` and creates an example plan of use.
+
+If you have installed [runnerty-cli] globally you can include the module with this command:
+
+```bash
+rty add @runnerty/executor-mail
+```
+
 ### Configuration samples:
+
 Add in [config.json]:
+
 ```json
 {
   "id": "mail_default",
@@ -57,7 +74,9 @@ Add in [config.json]:
 ```
 
 ### Plan sample:
+
 Add in [plan.json]:
+
 ```json
 {
   "id": "mail_default",
@@ -107,7 +126,7 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 guidelines for [contributing][contributing].
 
 [contributing]: https://github.com/runnerty/runnerty/blob/master/CONTRIBUTING.md
-[Runnerty]: http://www.runnerty.io
+[runnerty]: http://www.runnerty.io
 [downloads-image]: https://img.shields.io/npm/dm/@runnerty/executor-mail.svg
 [npm-url]: https://www.npmjs.com/package/@runnerty/executor-mail
 [npm-image]: https://img.shields.io/npm/v/@runnerty/executor-mail.svg
@@ -116,3 +135,4 @@ guidelines for [contributing][contributing].
 [config.json]: http://docs.runnerty.io/config/
 [plan.json]: http://docs.runnerty.io/plan/
 [ejs]: https://ejs.co
+[runnerty-cli]: https://www.npmjs.com/package/runnerty-cli

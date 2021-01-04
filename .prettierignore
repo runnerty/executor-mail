@@ -4,9 +4,7 @@ node_modules
 .gitignore
 .prettierignore
 LICENSE
+*.sql
 *.png
 *.txt
 TODO
-docs/functions.md
-*.md
-test.log
