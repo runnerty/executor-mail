@@ -1,0 +1,45 @@
+{
+  "$schema": "https://raw.githubusercontent.com/runnerty/schemas/master/schemas/3.0/plan.json",
+  "chains": [
+    {
+      "id": "CHAIN_MAIL_SAMPLES",
+      "name": "Mail module example chain",
+      "defaults_processes": {
+        "notifications": {
+          "on_start": [
+            {
+              "id": "console_default",
+              "message": "@GETDATE('YYYY-MM-DD HH:mm:ss') START: PROCESS @GV(PROCESS_ID)"
+            }
+          ],
+          "on_fail": [
+            {
+              "id": "console_default",
+              "message": "@GETDATE('YYYY-MM-DD HH:mm:ss') ERROR: PROCESS @GV(PROCESS_ID): @GV(PROCESS_EXEC_ERR_OUTPUT)",
+              "mode": "error"
+            }
+          ],
+          "on_end": [
+            {
+              "id": "console_default",
+              "message": "@GETDATE('YYYY-MM-DD HH:mm:ss') END: PROCESS @GV(PROCESS_ID)"
+            }
+          ]
+        }
+      },
+      "processes": [
+        {
+          "id": "MAIL_SIMPLE",
+          "name": "MYSQL COMMAND SAMPLE",
+          "exec": {
+            "id": "mail_default",
+            "to": ["my@mail.com"],
+            "title": "Runnerty Mailer",
+            "message": "My message from Runnerty!",
+            "args": { "value_one": "Value ONE!", "sample_date": "@GETDATE('YYYY-MM-DD HH:mm:ss')" }
+          }
+        }
+      ]
+    }
+  ]
+}
