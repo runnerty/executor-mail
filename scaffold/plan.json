@@ -32,7 +32,7 @@
           "id": "MAIL_SIMPLE",
           "name": "MYSQL COMMAND SAMPLE",
           "exec": {
-            "id": "mail_default",
+            "id": "mail_smtp",
             "to": ["my@mail.com"],
             "title": "Runnerty Mailer",
             "message": "My message from Runnerty!",
