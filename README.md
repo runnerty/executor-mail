@@ -20,18 +20,18 @@ Email notification module with [ejs] template support.
 npm i @runnerty/executor-mail
 ```
 
-You can also add modules to your project with [runnerty-cli]
+You can also add modules to your project with [runnerty]
 
 ```bash
-npx runnerty-cli add @runnerty/executor-mail
+npx runnerty add @runnerty/executor-mysql
 ```
 
-This command installs the module in your project, adds example configuration in your `config.json` and creates an example plan of use.
+This command installs the module in your project, adds example configuration in your [config.json] and creates an example plan of use.
 
-If you have installed [runnerty-cli] globally you can include the module with this command:
+If you have installed [runnerty] globally you can include the module with this command:
 
 ```bash
-rty add @runnerty/executor-mail
+runnerty add @runnerty/executor-mysql
 ```
 
 ### Configuration samples:
@@ -126,7 +126,7 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 guidelines for [contributing][contributing].
 
 [contributing]: https://github.com/runnerty/runnerty/blob/master/CONTRIBUTING.md
-[runnerty]: http://www.runnerty.io
+[runnerty]: https://www.runnerty.io
 [downloads-image]: https://img.shields.io/npm/dm/@runnerty/executor-mail.svg
 [npm-url]: https://www.npmjs.com/package/@runnerty/executor-mail
 [npm-image]: https://img.shields.io/npm/v/@runnerty/executor-mail.svg
@@ -135,4 +135,3 @@ guidelines for [contributing][contributing].
 [config.json]: http://docs.runnerty.io/config/
 [plan.json]: http://docs.runnerty.io/plan/
 [ejs]: https://ejs.co
-[runnerty-cli]: https://www.npmjs.com/package/runnerty-cli

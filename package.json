@@ -1,6 +1,6 @@
 {
   "name": "@runnerty/executor-mail",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "Runnerty module: Mail executor",
   "author": "Runnerty Tech",
   "license": "MIT",
@@ -22,14 +22,14 @@
   },
   "homepage": "https://github.com/runnerty/executor-mail#readme",
   "dependencies": {
-    "@runnerty/module-core": "~3.0.5",
+    "@runnerty/module-core": "~3.0.6",
     "ejs": "~3.1.6",
-    "nodemailer": "~6.6.2"
+    "nodemailer": "~6.6.5"
   },
   "devDependencies": {
-    "eslint": "^7.29.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "prettier": "^2.3.2"
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1"
   }
 }
