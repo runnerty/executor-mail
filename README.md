@@ -54,7 +54,7 @@ Add in [config.json]:
 
 ```json
 {
-  "id": "mail_aws_ses",
+  "id": "mail_aws_ses_iam_smtp",
   "type": "@runnerty-executor-mail",
   "disable": false,
   "from": "Runnerty <hello@runnerty.io>",
@@ -65,6 +65,32 @@ Add in [config.json]:
     "auth": {
       "user": "aws_ses_user",
       "pass": "aws_ses_pass"
+    }
+  },
+  "templateDir": "/etc/runnerty/templates",
+  "template": "alerts",
+  "ejsRender": true
+}
+```
+
+To use AWS SES [transport]:
+
+```json
+{
+  "id": "mail_aws_ses_role",
+  "type": "@runnerty-executor-mail",
+  "from": "Runnerty <hello@runnerty.io>",
+  "transport": {
+    "service": "SES",
+    "region": "us-east-1",
+    "ses": {
+      // optional extra arguments for SendRawEmail
+      "Tags": [
+        {
+          "Name": "tag_name",
+          "Value": "tag_value"
+        }
+      ]
     }
   },
   "templateDir": "/etc/runnerty/templates",
@@ -134,4 +160,5 @@ guidelines for [contributing][contributing].
 [david-badge-url]: https://david-dm.org/runnerty/executor-mail
 [config.json]: http://docs.runnerty.io/config/
 [plan.json]: http://docs.runnerty.io/plan/
+[transport]: https://nodemailer.com/transports/ses/
 [ejs]: https://ejs.co

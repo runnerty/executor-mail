@@ -1,6 +1,8 @@
 'use strict';
 
 const nodemailer = require('nodemailer');
+const aws = require('@aws-sdk/client-ses');
+const { defaultProvider } = require('@aws-sdk/credential-provider-node');
 const ejs = require('ejs');
 const path = require('path');
 const fsp = require('fs').promises;
@@ -77,8 +79,28 @@ class mailExecutor extends Executor {
         attachments: mail.attachments
       };
 
-      const transport = nodemailer.createTransport(mail.transport);
-      await transport.sendMail(mailOptions);
+      // SES Transport
+      if (mail.transport?.service === 'SES') {
+        if (!mail.transport.region) throw new Error('Must indicate the region to use SES transport');
+
+        const ses = new aws.SES({
+          apiVersion: '2010-12-01',
+          region: mail.transport.region,
+          defaultProvider
+        });
+
+        const transport = nodemailer.createTransport({ SES: { ses, aws } });
+
+        if (mail.transport.ses) {
+          mailOptions.ses = Object.assign(mail.transport.ses, mail.ses);
+        }
+        await transport.sendMail(mailOptions);
+      } else {
+        // SMTP Transport
+        const transport = nodemailer.createTransport(mail.transport);
+        await transport.sendMail(mailOptions);
+      }
+
       this.end();
     } catch (err) {
       const endOptions = {
