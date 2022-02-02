@@ -35,37 +35,60 @@ class mailExecutor extends Executor {
       const mail = res;
       mail.params = {};
 
-      if (!res.to) throw new Error('Mail TO, not setted');
-      mail.to = res.to.join(',');
-      if (res.cc) mail.cc = res.cc.join(',');
-      if (res.bcc) mail.bcc = res.bcc.join(',');
+      if (!res.devMode) {
+        if (!res.from) throw new Error('Mail FROM, not setted');
+        mail.from = res.from;
+        if (!res.to?.length) throw new Error('Mail TO, not setted or array is empty');
+        mail.to = res.to.join(',');
+        if (res.cc?.length) mail.cc = res.cc.join(',');
+        if (res.bcc?.length) mail.bcc = res.bcc.join(',');
+      } else if (res.devMode && res.devOptions) {
+        delete mail.to, mail.cc, mail.bbc;
+        if (!res.from && !res.devOptions.from) throw new Error('Mail FROM, not setted in dev options nor regular mode');
+        mail.from = res.devOptions.from ? res.devOptions.from : res.from;
+        if (!res.devOptions.to?.length) throw new Error('Mail TO, not setted or array is empty in dev options');
+        mail.to = res.devOptions.to.join(',');
+        if (res.devOptions.cc?.length) mail.cc = res.devOptions.cc.join(',');
+        if (res.devOptions.bcc?.length) mail.bcc = res.devOptions.bcc.join(',');
+      } else {
+        throw new Error('Dev options not setted in config');
+      }
 
-      mail.params.subject = res.title;
+      mail.params.subject = res.subject || res.title;
       mail.params.message = res.message;
 
-      const templateDir = path.resolve(mail.templateDir, mail.template);
-      const htmlTemplate = path.resolve(templateDir, 'html.html');
-      const txtTemplate = path.resolve(templateDir, 'text.txt');
+      let html,
+        text = undefined;
 
-      const html_data = await fsp.readFile(htmlTemplate);
-      const text_data = await fsp.readFile(txtTemplate);
+      if (mail.templateDir && mail.template) {
+        const templateDir = path.resolve(mail.templateDir, mail.template);
+        const htmlTemplate = path.resolve(templateDir, 'html.html');
+        const txtTemplate = path.resolve(templateDir, 'text.txt');
 
-      const options = {
-        useArgsValues: true,
-        useProcessValues: true,
-        useGlobalValues: true,
-        useExtraValue: mail.params
-      };
+        const html_data = await fsp.readFile(htmlTemplate);
+        const text_data = await fsp.readFile(txtTemplate);
 
-      let [html, text] = await Promise.all([
-        this.paramsReplace(html_data.toString(), options),
-        this.paramsReplace(text_data.toString(), options)
-      ]);
+        const options = {
+          useArgsValues: true,
+          useProcessValues: true,
+          useGlobalValues: true,
+          useExtraValue: mail.params
+        };
 
-      if (mail.ejsRender) {
-        const args = { ...mail, ...(mail.args && typeof mail.args === 'object' ? mail.args : {}) };
-        html = ejs.render(html, args);
-        text = ejs.render(text, args);
+        [html, text] = await Promise.all([
+          this.paramsReplace(html_data.toString(), options),
+          this.paramsReplace(text_data.toString(), options)
+        ]);
+
+        if (mail.ejsRender) {
+          const args = { ...mail, ...(mail.args && typeof mail.args === 'object' ? mail.args : {}) };
+          if (mail.partialsDir && mail.partials) {
+            const partialsDir = path.resolve(mail.partialsDir, mail.partials);
+            args.partialsDir = partialsDir;
+          }
+          html = ejs.render(html, args);
+          text = ejs.render(text, args);
+        }
       }
 
       const mailOptions = {
@@ -74,8 +97,8 @@ class mailExecutor extends Executor {
         cc: mail.cc,
         bcc: mail.bcc,
         subject: mail.params.subject,
-        text: text,
-        html: html,
+        text: typeof text !== 'undefined' ? text : mail.params.message,
+        html: typeof html !== 'undefined' ? html : mail.params.message,
         attachments: mail.attachments
       };
 

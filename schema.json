@@ -4,7 +4,7 @@
   "definitions": {
     "config": {
       "type": "object",
-      "required": ["id", "type", "transport", "templateDir", "template"],
+      "required": ["id", "type", "transport"],
       "properties": {
         "id": {
           "type": "string"
@@ -13,8 +13,41 @@
           "type": "string",
           "pattern": "@runnerty-executor-mail"
         },
+        "disable": {
+          "type": "boolean"
+        },
+        "devMode": {
+          "type": "boolean",
+          "description": "Enable dev mode to override emails destinations config in processes"
+        },
+        "devOptions": {
+          "type": ["object"],
+          "properties": {
+            "from": {
+              "type": "string"
+            },
+            "to": {
+              "type": "array"
+            },
+            "cc": {
+              "type": "array"
+            },
+            "bcc": {
+              "type": "array"
+            }
+          }
+        },
         "from": {
           "type": "string"
+        },
+        "to": {
+          "type": "array"
+        },
+        "cc": {
+          "type": "array"
+        },
+        "bcc": {
+          "type": "array"
         },
         "transport": {
           "type": ["string", "object"],
@@ -37,14 +70,13 @@
         "template": {
           "type": "string"
         },
-        "to": {
-          "type": "array"
+        "partialsDir": {
+          "type": "string",
+          "description": "Ejs partials folder"
         },
-        "cc": {
-          "type": "array"
-        },
-        "bcc": {
-          "type": "array"
+        "partials": {
+          "type": "string",
+          "description": "Ejs partials pieces folder"
         },
         "ejsRender": {
           "type": "boolean"
@@ -53,12 +85,12 @@
     },
     "params": {
       "type": "object",
-      "required": ["id", "message", "title"],
+      "required": ["id"],
       "properties": {
         "id": {
           "type": "string"
         },
-        "title": {
+        "from": {
           "type": "string"
         },
         "to": {
@@ -69,6 +101,16 @@
         },
         "bcc": {
           "type": "array"
+        },
+        "title": {
+          "type": "string",
+          "description": "Deprecated, use subject instead"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
         },
         "attachments": {
           "type": "array",
@@ -95,9 +137,6 @@
               }
             }
           }
-        },
-        "message": {
-          "type": "string"
         }
       }
     }

@@ -48,6 +48,8 @@ Add in [config.json]:
   "bcc": ["mycc@mail.com"],
   "templateDir": "/etc/runnerty/templates",
   "template": "alerts",
+  "partialsDir": "/etc/runnerty/partials",
+  "partials": "views",
   "ejsRender": true
 }
 ```
@@ -70,6 +72,26 @@ Add in [config.json]:
   "templateDir": "/etc/runnerty/templates",
   "template": "alerts",
   "ejsRender": true
+}
+```
+
+Using `devMode` overrides emails destinations config in processes for testing purposes or environments configuration:
+
+```json
+{
+  "id": "mail_default_dev_mode",
+  "type": "@runnerty-executor-mail",
+  "disable": false,
+  "devMode": true,
+  "devOptions": {
+    "from": "testing@test.com",
+    "to": ["testing2@test.com", "testing3@test.com"],
+    "cc": ["testing4@test.com"],
+    "bbc": ["testing5@test.com"]
+  },
+  "from": "Runnerty Notificator <sample@runnerty.io>",
+  "transport": "smtp://my%mailsender.com:pass@smtp.host.com/?pool=true",
+  "bcc": ["mycc@mail.com"]
 }
 ```
 
@@ -129,7 +151,7 @@ Add in [plan.json]:
   "to": ["my@mail.com"],
   "title": "Runnerty Mailer",
   "message": "My message from Runnerty!",
-  "args": { "value_one": "Hello", "value_two": "world!", "value_three": ":YYYY" }
+  "args": { "value_one": "Hello", "value_two": "world!", "value_three": "@GETDATE('YYYY')" }
 }
 ```
 
@@ -145,6 +167,22 @@ Add in [plan.json]:
   </body>
 </html>
 ```
+
+#### HTML Partials template:
+
+```html
+<html>
+  <head>
+    <%- include([partialsDir, 'head'].join('/')); %>
+  </head>
+  <body>
+    <p><%= value_one %> <%= value_two %></p>
+    <%= value_three %>
+  </body>
+</html>
+```
+
+Note: `partialsDir` var is automated generated from `config.json` configuration
 
 ## Want to help?
 
