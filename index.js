@@ -61,12 +61,17 @@ class mailExecutor extends Executor {
         text = undefined;
 
       if (mail.templateDir && mail.template) {
-        const templateDir = path.resolve(mail.templateDir, mail.template);
-        const htmlTemplate = path.resolve(templateDir, 'html.html');
-        const txtTemplate = path.resolve(templateDir, 'text.txt');
+        const templatePath = path.resolve(mail.templateDir, mail.template);
+        const htmlTemplate = path.resolve(templatePath, 'html.html');
+        const txtTemplate = path.resolve(templatePath, 'text.txt');
 
-        const html_data = await fsp.readFile(htmlTemplate);
-        const text_data = await fsp.readFile(txtTemplate);
+        let html_data;
+        let text_data;
+
+        mail.htmlTemplate = typeof mail.htmlTemplate === 'undefined' ? true : mail.htmlTemplate;
+
+        if (mail.htmlTemplate) html_data = await fsp.readFile(htmlTemplate);
+        if (mail.textTemplate) text_data = await fsp.readFile(txtTemplate);
 
         const options = {
           useArgsValues: true,
@@ -76,18 +81,18 @@ class mailExecutor extends Executor {
         };
 
         [html, text] = await Promise.all([
-          this.paramsReplace(html_data.toString(), options),
-          this.paramsReplace(text_data.toString(), options)
+          this.paramsReplace(html_data?.toString(), options),
+          this.paramsReplace(text_data?.toString(), options)
         ]);
 
         if (mail.ejsRender) {
           const args = { ...mail, ...(mail.args && typeof mail.args === 'object' ? mail.args : {}) };
           if (mail.partialsDir && mail.partials) {
-            const partialsDir = path.resolve(mail.partialsDir, mail.partials);
-            args.partialsDir = partialsDir;
+            const partialsPath = path.resolve(mail.partialsDir, mail.partials);
+            args.partialsPath = partialsPath;
           }
-          html = ejs.render(html, args);
-          text = ejs.render(text, args);
+          if (mail.htmlTemplate) html = ejs.render(html, args);
+          if (mail.textTemplate) text = ejs.render(text, args);
         }
       }
 

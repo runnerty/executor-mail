@@ -70,6 +70,14 @@
         "template": {
           "type": "string"
         },
+        "htmlTemplate": {
+          "type": "boolean",
+          "description": "Enable html version of the message, active by default"
+        },
+        "textTemplate": {
+          "type": "boolean",
+          "description": "Enable plaintext version of the message, inactive by default"
+        },
         "partialsDir": {
           "type": "string",
           "description": "Ejs partials folder"
@@ -77,6 +85,10 @@
         "partials": {
           "type": "string",
           "description": "Ejs partials pieces folder"
+        },
+        "defaultLang": {
+          "type": "string",
+          "description": "Default language for templates/partials"
         },
         "ejsRender": {
           "type": "boolean"

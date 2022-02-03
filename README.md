@@ -48,8 +48,11 @@ Add in [config.json]:
   "bcc": ["mycc@mail.com"],
   "templateDir": "/etc/runnerty/templates",
   "template": "alerts",
+  "htmlTemplate": true, // Enable html version of the message, active by default
+  "textTemplate": false, // Enable plaintext version of the message, inactive by default
   "partialsDir": "/etc/runnerty/partials",
   "partials": "views",
+  "defaultLang": "es", // Default language for templates/partials
   "ejsRender": true
 }
 ```
@@ -173,16 +176,19 @@ Add in [plan.json]:
 ```html
 <html>
   <head>
-    <%- include([partialsDir, 'head'].join('/')); %>
+    <%- include([partialsPath, 'head'].join('/')); %>
   </head>
   <body>
     <p><%= value_one %> <%= value_two %></p>
     <%= value_three %>
   </body>
+  <footer>
+    <%- include([partialsPath, defaultLang, 'footer'].join('/')); %>
+  </footer> 
 </html>
 ```
 
-Note: `partialsDir` var is automated generated from `config.json` configuration
+Note: `partialsDir` and `defaultLang` vars are automated generated from `config.json` configuration
 
 ## Want to help?
 
