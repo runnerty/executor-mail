@@ -23,7 +23,7 @@ npm i @runnerty/executor-mail
 You can also add modules to your project with [runnerty]
 
 ```bash
-npx runnerty add @runnerty/executor-mysql
+npx runnerty add @runnerty/executor-mail
 ```
 
 This command installs the module in your project, adds example configuration in your [config.json] and creates an example plan of use.
@@ -31,7 +31,7 @@ This command installs the module in your project, adds example configuration in 
 If you have installed [runnerty] globally you can include the module with this command:
 
 ```bash
-runnerty add @runnerty/executor-mysql
+runnerty add @runnerty/executor-mail
 ```
 
 ### Configuration samples:

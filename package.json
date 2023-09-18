@@ -22,16 +22,16 @@
   },
   "homepage": "https://github.com/runnerty/executor-mail#readme",
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.67.0",
-    "@aws-sdk/credential-provider-node": "^3.67.0",
-    "@runnerty/module-core": "~3.1.0",
-    "ejs": "~3.1.6",
-    "nodemailer": "~6.7.3"
+    "@aws-sdk/client-ses": "^3.414.0",
+    "@aws-sdk/credential-provider-node": "^3.414.0",
+    "@runnerty/module-core": "^3.1.1",
+    "ejs": "^3.1.9",
+    "nodemailer": "^6.9.5"
   },
   "devDependencies": {
-    "eslint": "^8.13.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.6.2"
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8"
   }
 }
